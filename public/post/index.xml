@@ -5,12 +5,21 @@
     <link>/post/</link>
       <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Fri, 22 May 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/GitHub_profile_pic.PNG</url>
       <title>Posts</title>
       <link>/post/</link>
     </image>
+    
+    <item>
+      <title>first post</title>
+      <link>/post/first-post/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      <guid>/post/first-post/</guid>
+      <description>&lt;p&gt;We&amp;rsquo;re gathering data.&lt;/p&gt;
+</description>
+    </item>
     
   </channel>
 </rss>
