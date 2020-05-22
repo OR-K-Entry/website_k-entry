@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Graduate Student | OR-K-Entry</title>
+    <link>/author/graduate-student/</link>
+      <atom:link href="/author/graduate-student/index.xml" rel="self" type="application/rss+xml" />
+    <description>Graduate Student</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language>
+    <image>
+      <url>/img/GitHub_profile_pic.png</url>
+      <title>Graduate Student</title>
+      <link>/author/graduate-student/</link>
+    </image>
+    
+  </channel>
+</rss>

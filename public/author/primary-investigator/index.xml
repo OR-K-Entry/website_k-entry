@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Primary Investigator | OR-K-Entry</title>
+    <link>/author/primary-investigator/</link>
+      <atom:link href="/author/primary-investigator/index.xml" rel="self" type="application/rss+xml" />
+    <description>Primary Investigator</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language>
+    <image>
+      <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
+      <title>Primary Investigator</title>
+      <link>/author/primary-investigator/</link>
+    </image>
+    
+  </channel>
+</rss>
