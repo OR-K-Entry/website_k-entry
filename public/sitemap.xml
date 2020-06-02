@@ -3,12 +3,37 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/post/first-post/</loc>
+    <loc>/authors/</loc>
+    <lastmod>2020-05-22T12:42:28-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/data/</loc>
+    <lastmod>2020-05-22T12:42:28-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/data_post_1/</loc>
+    <lastmod>2020-05-22T12:42:28-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/author/graduate-student/</loc>
+    <lastmod>2020-05-22T12:42:28-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/milestone/</loc>
     <lastmod>2020-05-22T12:42:28-06:00</lastmod>
   </url>
   
   <url>
     <loc>/post/</loc>
+    <lastmod>2020-05-22T12:42:28-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
     <lastmod>2020-05-22T12:42:28-06:00</lastmod>
   </url>
   
@@ -28,15 +53,7 @@
   </url>
   
   <url>
-    <loc>/authors/</loc>
-  </url>
-  
-  <url>
     <loc>/categories/</loc>
-  </url>
-  
-  <url>
-    <loc>/author/graduate-student/</loc>
   </url>
   
   <url>
@@ -61,10 +78,6 @@
   
   <url>
     <loc>/author/research-assistant-professor/</loc>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
   </url>
   
 </urlset>

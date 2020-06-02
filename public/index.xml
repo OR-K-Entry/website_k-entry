@@ -13,11 +13,85 @@
     </image>
     
     <item>
-      <title>first post</title>
-      <link>/post/first-post/</link>
+      <title>Data Sources &amp; Variables for OR-K-Entry</title>
+      <link>/post/data_post_1/</link>
       <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
-      <guid>/post/first-post/</guid>
-      <description>&lt;p&gt;We&amp;rsquo;re gathering data.&lt;/p&gt;
+      <guid>/post/data_post_1/</guid>
+      <description>&lt;h3 id=&#34;an-introduction&#34;&gt;An Introduction&lt;/h3&gt;
+&lt;p&gt;OR-K-Entry, the research project shared on this site, is designed to address the racial/ethnic and socio-economic disparities in school readiness for incoming kindergarten students, of which there are many&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. The investigative team (learn more in the &lt;a href=&#34;../../authors&#34;&gt;people&lt;/a&gt; section) is leveraging various large-scale datasets collected on preschool children and their families to develop models that can guide intervention efforts and enhance children’s readiness to learn. The goal? Development of an innovative risk model that pools child, school, and community variables to clarify and strengthen intervention priorities.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/creative_commons_ODA_kids_classroom_48632261198_4a99f7439d_b.jpg&#34; alt=&#34;Creative commons photo of four preschool children sitting on the floor; one boy looks at the camera; one girl and one boy look at beetle and insect posters on the floor in front of the group; one girl looks off camera, apparently at a teacher&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;what-were-doing-now&#34;&gt;What We&amp;rsquo;re Doing Now&lt;/h2&gt;
+&lt;p&gt;This project is early in the seed grant period. Our three objectives during this phase are to&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Develop a new data archive that pools economic and health-related outcomes with data on children’s readiness for kindergarten.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Develop an initial “risk profile” model, forecasting the kindergarten readiness of children within specific communities, including evaluating the relative importance of different variables in the prediction algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Assemble an initial data system and preliminary models that will be expanded in an R01 application to NICHD.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We&amp;rsquo;re focused primarily on the child and community level data at this point.&lt;/p&gt;
+&lt;h2 id=&#34;school--child-level-data&#34;&gt;School &amp;amp; Child Level Data&lt;/h2&gt;
+&lt;p&gt;School data and student data are provided by the Oregon Department of Education (ODE) with whom the project team has a long-standing relationship of collaboration, as well as existing data sharing agreements. We use data on the school facilities, staff demographics and student body demographic makeup in addition to data from the Oregon Kindergarten Assessment (OKA).&lt;/p&gt;
+&lt;p&gt;The OKA measures children’s school readiness through the assessment of pre-academic (emergent literacy and mathematics) and classroom behavior regulation competencies crucial for successful transitions to kindergarten.&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; OKA data were obtained for every student in the state from the 2013/14 school year, when the assessment was first administered to all incoming kindergarten students, through the current 2019-2020 school year.&lt;/p&gt;
+&lt;p&gt;We have collected basic student demographic data including&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;economic disadvantage status - defined by eligibility for free or reduced-price lunch.&lt;/li&gt;
+&lt;li&gt;gender&lt;/li&gt;
+&lt;li&gt;race / ethnicity&lt;/li&gt;
+&lt;li&gt;home addresses at the time the test was administered - this allows us to directly link individual student data to community variables via spatial joins&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img src=&#34;/post/2020-05-22-first-post_files/beta_1.png&#34; alt=&#34;pale pink 2D hexagon with bright pink border; six dots are in the hexagon; four dots are yellow; one is purple; one is dark pink&#34; width=&#34;20%&#34;/&gt;
+&lt;h2 id=&#34;community-level-data&#34;&gt;Community Level Data&lt;/h2&gt;
+&lt;p&gt;At the community level, we focus primarily on economic and health-related data associated with the broad risk factors of early childhood:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;poverty&lt;/li&gt;
+&lt;li&gt;unsafe housing&lt;/li&gt;
+&lt;li&gt;domestic conflict&lt;/li&gt;
+&lt;li&gt;abuse&lt;/li&gt;
+&lt;li&gt;inadequate nutrition&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;These data have been collected from the Annie E Casey Foundation (Kidscount) and the ACS 2017, a 5-year survey conducted by the United States Census Bureau.&lt;/p&gt;
+&lt;p&gt;The Kidscount data, complied at the county level for each of Oregon&amp;rsquo;s 36&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; counties, include&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;percentage of children living in food insecure households&lt;/li&gt;
+&lt;li&gt;rates of child abuse and neglect&lt;/li&gt;
+&lt;li&gt;threat of harm rates&lt;/li&gt;
+&lt;li&gt;number of children in foster care&lt;/li&gt;
+&lt;li&gt;number of children in the juvenile justice system&lt;/li&gt;
+&lt;li&gt;rates of infant mortality&lt;/li&gt;
+&lt;li&gt;teen pregnancy rates&lt;/li&gt;
+&lt;li&gt;rates of adequate prenatal care&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Variables from the ACS 2017 were collected at the census tract level. There are 834&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; census tracts in Oregon. They include information on&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;rates of children living in households with poverty status&lt;/li&gt;
+&lt;li&gt;median family income&lt;/li&gt;
+&lt;li&gt;rates of children living in households that receive public assistance such as supplemental nutrition benefits&lt;/li&gt;
+&lt;li&gt;distribution of home values&lt;/li&gt;
+&lt;li&gt;distribution of educational attainment&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;more-data&#34;&gt;More Data&lt;/h3&gt;
+&lt;p&gt;Moving forward, we&amp;rsquo;re inquiring after data regarding other community health and economic indicators from DHS, Facebook, and additional researchers.&lt;/p&gt;
+&lt;h2 id=&#34;data-directory&#34;&gt;Data Directory&lt;/h2&gt;
+&lt;p&gt;This &lt;a href=&#34;https://github.com/OR-K-Entry/k-entry/tree/master/data-documentation&#34;&gt;documentation page&lt;/a&gt; provides names, descriptions, and sources for variables we have collected for our preliminary modeling.&lt;/p&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Anderson, D., &lt;a href=&#34;https://djanderson07.shinyapps.io/elashiny/&#34;&gt;2019&lt;/a&gt;; Fryer &amp;amp; Levitt, &lt;a href=&#34;https://www.google.com/url?sa=t&amp;amp;rct=j&amp;amp;q=&amp;amp;esrc=s&amp;amp;source=web&amp;amp;cd=&amp;amp;ved=2ahUKEwi365OCwdrpAhVHtZ4KHfSgAgwQFjAAegQIARAB&amp;amp;url=http%3A%2F%2Fpricetheory.uchicago.edu%2Flevitt%2FPapers%2FFryerLevittUnderstandingTheBlack2004.pdf&amp;amp;usg=AOvVaw0RQZNvZza4ZOPoJPuvQ1wn&#34;&gt;2004&lt;/a&gt;, &lt;a href=&#34;https://www.jstor.org/stable/42705499?seq=1#metadata_info_tab_contents&#34;&gt;2006&lt;/a&gt;; García, &lt;a href=&#34;https://www.epi.org/publication/inequalities-at-the-starting-gate-cognitive-and-noncognitive-gaps-in-the-2010-2011-kindergarten-class/&#34;&gt;2015&lt;/a&gt; &lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;McClelland, Acock, &amp;amp; Morrison, &lt;a href=&#34;https://psycnet.apa.org/record/2006-22456-005&#34;&gt;2006&lt;/a&gt; &lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.census.gov/geographies/reference-files/2010/geo/state-local-geo-guides-2010/oregon.html&#34;&gt;US Census Bureau&lt;/a&gt; &lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
 </description>
     </item>
     
