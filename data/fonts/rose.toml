@@ -1,0 +1,11 @@
+# Font style metadata
+name = "Rose"
+
+# Optional Google font URL
+google_fonts = "Cutive+Mono|Oxygen:400|Roboto:400,700"
+
+# Font families
+heading_font = "Oxygen"
+body_font = "Roboto"
+nav_font = "Oxygen"
+mono_font = "Cutive Mono"
