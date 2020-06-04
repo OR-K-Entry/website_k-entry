@@ -54,5 +54,5 @@ height = "calc(100vh - 70px)"
   overlay_img = "data-documentation.png"  # Image path relative to your `static/img/` folder.
   overlay_filter = 0.6  # Darken the image. Value in range 0-1.
   cta_label = "Get access"
-  cta_url = "https://github.com/OR-K-Entry/ec-providers"
+  cta_url = "https://github.com/OR-K-Entry/k-entry"
 +++
