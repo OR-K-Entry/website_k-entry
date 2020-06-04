@@ -44,6 +44,9 @@
 
   
   
+  
+  <script src="/js/mathjax-config.js"></script>
+  
 
   
   
@@ -174,9 +177,9 @@
 
       
       
-        
-      
 
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
       
     
       
@@ -192,7 +195,7 @@
   
   
   
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cutive+Mono%7CLora:400,700%7CRoboto:400,700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cutive+Mono%7COxygen:400%7CRoboto:400,700&display=swap">
   
 
   
@@ -229,8 +232,8 @@
   
   <meta property="twitter:card" content="summary_large_image">
   
-  <meta property="twitter:site" content="@datalorax">
-  <meta property="twitter:creator" content="@datalorax">
+  <meta property="twitter:site" content="@datalorax_">
+  <meta property="twitter:creator" content="@datalorax_">
   
   <meta property="og:site_name" content="OR-K-Entry">
   <meta property="og:url" content="/">
@@ -393,7 +396,7 @@
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/#about" data-target="#about"><span>Home</span></a>
+          <a class="nav-link " href="/#slider" data-target="#slider"><span>Home</span></a>
         </li>
 
         
@@ -422,36 +425,7 @@
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/#slider" data-target="#slider"><span>Timeline & Figures</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#posts" data-target="#posts"><span>Posts</span></a>
+          <a class="nav-link " href="/#posts" data-target="#posts"><span>Blog</span></a>
         </li>
 
         
@@ -601,7 +575,7 @@
     
   
 
-  <section id="slider" class="home-section wg-slider    carousel slide"  data-ride="carousel" data-interval="false">
+  <section id="slider" class="home-section wg-slider    carousel slide"  data-ride="carousel" data-interval="4000">
     
       
 
@@ -621,24 +595,24 @@
 
 <div class="carousel-inner">
   
-  <div class="wg-hero dark carousel-item active" style="
+  <div class="wg-hero dark carousel-item active" style="height: calc(100vh - 70px);
     
     background-color: #666;
     
     
     background-image:
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-    url('/img/headers/bubbles-wide.jpg');
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+    url('/img/ela-app.png');
     
     ;">
     <div class="container" style="text-align: center;">
         <h1 class="hero-title">
-          Hello
+          Data accessibility
         </h1>
 
         
         <p class="hero-lead" style="margin: 0 auto 0 auto;">
-          I am center aligned 😄
+          Putting data in the hands of providers
         </p>
         
 
@@ -649,50 +623,76 @@
           
         
         <p>
-          <a href="https://sourcethemes.com/academic/" class="btn btn-light btn-lg"><i class="fas fa-graduation-cap" style="padding-right: 10px;"></i>Get Academic</a>
+          <a href="https://djanderson07.shinyapps.io/ela-shiny/" class="btn btn-light btn-lg">Early Learning Alliance Application</a>
         </p>
         
       </div>
   </div>
   
-  <div class="wg-hero dark carousel-item" style="
+  <div class="wg-hero dark carousel-item" style="height: calc(100vh - 70px);
     
-    background-color: #555;
+    background-color: #666;
     
+    
+    background-image:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+    url('/img/or-map.png');
     
     ;">
-    <div class="container" style="text-align: left;">
+    <div class="container" style="text-align: center;">
         <h1 class="hero-title">
-          Left
+          Geographical variation
         </h1>
 
         
-        <p class="hero-lead" style="">
-          I am left aligned 😄
+        <p class="hero-lead" style="margin: 0 auto 0 auto;">
+          Exploring Access to Pre-K services
         </p>
         
 
+        
+        
+        
+        
+          
+        
+        <p>
+          <a href="https://github.com/OR-K-Entry/ec-providers" class="btn btn-light btn-lg">See the project</a>
+        </p>
         
       </div>
   </div>
   
-  <div class="wg-hero dark carousel-item" style="
+  <div class="wg-hero dark carousel-item" style="height: calc(100vh - 70px);
     
-    background-color: #333;
+    background-color: #666;
     
+    
+    background-image:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+    url('/img/data-documentation.png');
     
     ;">
-    <div class="container" style="text-align: right;">
+    <div class="container" style="text-align: center;">
         <h1 class="hero-title">
-          Right
+          Publicly-available data
         </h1>
 
         
-        <p class="hero-lead" style="margin-left: auto; margin-right: 0">
-          I am right aligned 😄
+        <p class="hero-lead" style="margin: 0 auto 0 auto;">
+          Pooling community-level data on health, economics, and demographics
         </p>
         
 
+        
+        
+        
+        
+          
+        
+        <p>
+          <a href="https://github.com/OR-K-Entry/ec-providers" class="btn btn-light btn-lg">Get access</a>
+        </p>
         
       </div>
   </div>
@@ -710,97 +710,6 @@
 </a>
 
     
-  </section>
-
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-  
-
-  <section id="about" class="home-section wg-about   "  >
-    <div class="container">
-      
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-<div class="row">
-  <div class="col-12 col-lg-4">
-    <div id="profile">
-
-      
-      
-      <img class="portrait" src="/author/or-k-entry-project/avatar_hu0378f9fef0b8a859950a2c7cf733f2b7_29063_250x250_fill_q90_lanczos_center.jpg" alt="Avatar">
-      
-
-      <div class="portrait-title">
-        <h2></h2>
-        
-
-        
-      </div>
-
-      <ul class="network-icon" aria-hidden="true">
-        
-      </ul>
-
-    </div>
-  </div>
-  <div class="col-12 col-lg-8">
-
-    
-    <h1>About</h1>
-
-    <p>Enter overview here.</p>
-<p>The scripts and public data used in this project are available on <a href="https://github.com/OR-K-Entry/k-entry">GitHub</a>.</p>
-
-
-    <div class="row">
-
-      
-
-      
-
-    </div>
-  </div>
-</div>
-
-    </div>
   </section>
 
   
@@ -1005,28 +914,35 @@
   
 
   
-
+    
+    
+    
+    
+    
+    
   
 
   
 
   
+
+  
+  
+
+  
+  
   
 
   
   
   
-
-  
-  
-  
   
   
 
   
   
 
-  <section id="people" class="home-section wg-people   "  >
+  <section id="people" class="home-section wg-people   bg-image parallax " style="background-image:  url(&#39;/img/chalkboard.jpg&#39;);" >
     <div class="container">
       
 
@@ -1153,12 +1069,56 @@
       
     
     
-      <a href="/author/research-assistant-professor/"><img class="portrait" src="/author/research-assistant-professor/avatar_huc01e965adc0691b9c82f72407b633c5e_29063_150x150_fill_q90_lanczos_center.jpg" alt="Avatar"></a>
+      <a href="/author/co-pi/"><img class="portrait" src="/author/co-pi/avatar_hu233c1ba65c51f951e4dd9bda934ff971_29063_150x150_fill_q90_lanczos_center.jpg" alt="Avatar"></a>
     
 
     <div class="portrait-title">
-      <h2><a href="/author/research-assistant-professor/"></a></h2>
-      <h3>OR-K-Entry Primary Investigator</h3>
+      <h2><a href="/author/co-pi/"></a></h2>
+      <h3>OR-K-Entry Co-Prinicipal Investigator</h3>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      <p class="people-interests">Classroom Instruction, Teacher Practices, Educational Measurement</p>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+    
+  
+  <div class="col-12 col-sm-auto people-person">
+    
+    
+      
+      
+    
+    
+      <a href="/author/pi/"><img class="portrait" src="/author/pi/avatar_huc01e965adc0691b9c82f72407b633c5e_29063_150x150_fill_q90_lanczos_center.jpg" alt="Avatar"></a>
+    
+
+    <div class="portrait-title">
+      <h2><a href="/author/pi/"></a></h2>
+      <h3>OR-K-Entry Principal Investigator</h3>
       <ul class="network-icon" aria-hidden="true">
   
     
@@ -1198,6 +1158,21 @@
     
     
     
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?hl=en&amp;user=zLGitWoAAAAJ" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
       
     
     
@@ -1209,6 +1184,21 @@
     <li>
       <a href="https://github.com/datalorax" target="_blank" rel="noopener">
         <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://datalorax.github.io/anderson-cv/" target="_blank" rel="noopener">
+        <i class="ai ai-cv"></i>
       </a>
     </li>
   
@@ -1231,12 +1221,12 @@
       
     
     
-      <a href="/author/research-assistant-professor/"><img class="portrait" src="/author/research-assistant-professor/avatar_hu233c1ba65c51f951e4dd9bda934ff971_29063_150x150_fill_q90_lanczos_center.jpg" alt="Avatar"></a>
+      <a href="/author/project-advisor/"><img class="portrait" src="/author/project-advisor/avatar_hu71e1c75c3aa27ddb1632ca06cbd0542e_21770_150x150_fill_q90_lanczos_center.jpg" alt="Avatar"></a>
     
 
     <div class="portrait-title">
-      <h2><a href="/author/research-assistant-professor/"></a></h2>
-      <h3>OR-K-Entry Co-Primary Investigator</h3>
+      <h2><a href="/author/project-advisor/"></a></h2>
+      <h3>OR-K-Entry Project Advisor</h3>
       <ul class="network-icon" aria-hidden="true">
   
     
@@ -1256,9 +1246,24 @@
       </a>
     </li>
   
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=zBj0u7UAAAAJ&amp;hl=en&amp;oi=ao" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
 </ul>
 
-      <p class="people-interests">Classroom Instruction, Teacher Practices, Educational Measurement</p>
+      <p class="people-interests">Emotional &amp; Behavioral Disorders, Behavioral Health Interventions, Research Design &amp; Program Evaluation</p>
     </div>
   </div>
   
@@ -1343,6 +1348,11 @@
     <ul class="fa-ul">
 
       
+      <li>
+        <i class="fa-li fas fa-envelope fa-2x" aria-hidden="true"></i>
+        <span id="person-email"><a href="mailto:daniela@uoregon.edu">daniela@uoregon.edu</a></span>
+      </li>
+      
 
       
 
@@ -1362,11 +1372,6 @@
       </li>
       
 
-      
-      <li>
-        <i class="fa-li fas fa-clock fa-2x" aria-hidden="true"></i>
-        <span>Monday 10:00 to 12:00<br>Wednesday 09:00 to 12:00</span>
-      </li>
       
 
       
@@ -1516,7 +1521,7 @@
   
 
   <p class="powered-by">
-    
+    © 2020 &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for

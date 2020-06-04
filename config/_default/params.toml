@@ -58,7 +58,7 @@ highlight_languages = ["r"]  # Add support for highlighting additional languages
 
 # Enable LaTeX math rendering? true/false
 #   If false, you can enable math on a per page basis as needed.
-math = false
+math = true
 
 # Enable diagram rendering? true/false
 #   If false, you can enable diagrams on a per page basis as needed.
@@ -71,7 +71,7 @@ privacy_pack = false
 
 # Enable visitors to edit pages?
 #   `repo` defines the repository URL. `editable` defines which page types can be edited.
-edit_page = {repo_url = "https://github.com/gcushen/hugo-academic", content_dir = "", repo_branch = "master", editable = {docs = true, page = false, post = false}}
+# edit_page = {repo_url = "https://github.com/gcushen/hugo-academic", content_dir = "", repo_branch = "master", editable = {docs = true, page = false, post = false}}
 
 ############################
 ## Contact details
@@ -81,7 +81,7 @@ edit_page = {repo_url = "https://github.com/gcushen/hugo-academic", content_dir 
 ############################
 
 # Enter contact details (optional). To hide a field, clear it to "".
-email = ""
+email = "daniela@uoregon.edu"
 phone = ""
 
 # Address
@@ -97,7 +97,7 @@ directions = "All in-person visits are on hold until further notice. Please dire
 
 # Office hours
 # A list of your office hours. To remove, set to an empty list `[]`.
-office_hours = ["Monday 10:00 to 12:00", "Wednesday 09:00 to 12:00"]
+#office_hours = ["Monday 10:00 to 12:00", "Wednesday 09:00 to 12:00"]
 
 # Enter an optional link for booking appointments (e.g. calendly.com).
 appointment_url = ""
@@ -120,7 +120,7 @@ appointment_url = ""
 sharing_image = "GitHub_profile_pic.png"
 
 # Twitter username (without @). Used when a visitor shares your site on Twitter.
-twitter = "datalorax"
+twitter = "datalorax_"
 
 ############################
 ## Regional Settings

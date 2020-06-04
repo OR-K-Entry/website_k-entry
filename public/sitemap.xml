@@ -57,7 +57,19 @@
   </url>
   
   <url>
+    <loc>/author/co-pi/</loc>
+  </url>
+  
+  <url>
     <loc>/author/or-k-entry-project/</loc>
+  </url>
+  
+  <url>
+    <loc>/author/pi/</loc>
+  </url>
+  
+  <url>
+    <loc>/author/project-advisor/</loc>
   </url>
   
   <url>
@@ -70,14 +82,6 @@
   
   <url>
     <loc>/talk/</loc>
-  </url>
-  
-  <url>
-    <loc>/author/research-assistant-professor/</loc>
-  </url>
-  
-  <url>
-    <loc>/author/research-assistant-professor/</loc>
   </url>
   
 </urlset>

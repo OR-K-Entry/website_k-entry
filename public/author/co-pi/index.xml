@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Co-PI | OR-K-Entry</title>
+    <link>/author/co-pi/</link>
+      <atom:link href="/author/co-pi/index.xml" rel="self" type="application/rss+xml" />
+    <description>Co-PI</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright>
+    <image>
+      <url>/img/GitHub_profile_pic.png</url>
+      <title>Co-PI</title>
+      <link>/author/co-pi/</link>
+    </image>
+    
+  </channel>
+</rss>
