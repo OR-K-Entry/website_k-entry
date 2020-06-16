@@ -1,0 +1,91 @@
+---
+title: Publicly Available Data from KIDS COUNT
+author: Rebecca
+date: '2020-06-16'
+slug: publicly-available-data-from-kids-count
+categories: []
+tags:
+  - data
+subtitle: 'Data from the Annie E. Casey Foundation'
+summary: ''
+authors: [rebecca]
+lastmod: '2020-06-16T11:30:07-06:00'
+featured: yes
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+```{r setup, echo = FALSE, message=FALSE}
+library(pacman)
+p_load(readr, magrittr, reactable, dplyr)
+
+# This needs proper direction to the online doc
+KC = read_csv("C:/My_R/k_entry/k-entry/data/kidscount/kidscount.csv")
+
+keeps = c("Location", "year", "per1000_abuseneglect_children_cou", "per1000_infantmortality_all_cou",  "per1000_juvjusref_children_cou", "per1000_teenpreg1519_all_cou", "percent_adequateprenatcare_all_cou", "percent_cohortgrad_children_cou", "percent_foodinsecure_children_cou", "percent_fostercare_children_cou", "percent_frl_children_cou", "percent_g3mathprof_children_cou", "percent_g3readprof_children_cou", "percent_g8mathprof_children_cou", "percent_g8readprof_children_cou", "percent_homeless_children_cou", "percent_immuniz4313314_children_cou", "percent_nohealthinsur_children_cou", "percent_poverty_children_cou")
+
+kc = KC[KC$Location != "Oregon", (names(KC) %in% keeps)]
+
+kc %<>%
+  rename("County" = "Location",
+  "Abused & Neglected Children, per 1000" = "per1000_abuseneglect_children_cou",
+  "Infant Mortality Rate per 1000 births" = "per1000_infantmortality_all_cou",
+  "Juveniles Referred to Justice System per 1000 children" = "per1000_juvjusref_children_cou",
+  "% Children Who Received Adequate Prenatal Care" = "percent_adequateprenatcare_all_cou",
+  "% Children Who Are Food Insecure" = "percent_foodinsecure_children_cou",
+  "% Proficient in Grade 3 Math" = "percent_g3mathprof_children_cou",
+  "% Proficient in Grade 3 Reading" = "percent_g3readprof_children_cou",
+  "% Proficient in Grade 8 Math" = "percent_g8mathprof_children_cou",
+  "% Proficient in Grade 8 Reading" = "percent_g8readprof_children_cou",
+  "% Children Living in Homelessness" = "percent_homeless_children_cou",
+  "% Completed 4313314 Immunization Schedule" = "percent_immuniz4313314_children_cou",
+  "% Children Without Health Insurance" = percent_nohealthinsur_children_cou,
+  "% Children in Poverty" = "percent_poverty_children_cou")
+```
+# Annie E. Casey Foundation, “Kidscount”
+
+Publicly available data from the Annie E. Casey Foundation provides snapshots of socio-economic and educational standing of children at the county level. We refer to the data we compiled from the foundation’s data collection initiative, KIDS COUNT, as the Kidscount data in our [data directory](https://github.com/OR-K-Entry/k-entry/tree/master/data-documentation), GitHub repo file paths, and blog posts. If you would like similar information for your own area, [Kidscount](https://datacenter.kidscount.org/) contains data for each of the fifty states, the District of Columbia, Puerto Rico, Virgin Islands, and the aggregated U.S..
+
+## Oregon Student Academic Performance
+
+Kidscount variables include county rates of student proficiency in math and in reading using third and eighth grade assessments. In the 2014-2015 school year, Oregon’s counties ranged from about 37 to 75 percent of their students (in schools that receive public funding) rated proficient in math at grade three and ranging from around 33 to 80 percent at grade eight.
+```{r, echo = FALSE, message=FALSE}
+kc_testing = cbind(kc[,1:2], kc[,12:15])
+
+reactable(kc_testing, pagination = FALSE, highlight = TRUE, height = 250, outlined = TRUE, striped = TRUE, filterable = FALSE, columns = list(County = colDef(filterable = TRUE), year = colDef(filterable = TRUE)), fullWidth = FALSE)
+```
+Reading proficiency among Oregon students in that same year ranges by county from apporximately 47 to 82 percent of third grade students and around 48 to 81 percent of eighth grade students. Gilliam and Lincoln counties appear most consistently with the lowest rates of proficiency across grades and subjects. On the high-achieving end, Sherman County leads across subjects and grades three for four.
+
+
+## Oregon Children’s Health & Safety Indicators
+
+There is clear evidence that academic achievement and health outcomes are inter-related, with each influencing the other.[^1]  Educational outcomes impact health most directly through future socioeconomic status (including neighborhood residence), but lower education levels are also associated with increased risky behavior, including smoking, reduced physical activity, and early sexual activity.[^2]
+
+With that in mind, we include a number of county-level health variables in our Kidscount data. They include (among others): percentage of children living in food insecure households, abuse and neglect rates, threat of harm rates, children in foster care and the juvenile justice system, infant mortality, teen pregnancy, low birthweights, adequate prenatal care, and immunization rates. 
+
+Percentage of Oregon Children Living in Homelessness - by County
+```{r, echo = FALSE, message=FALSE}
+kc_homeless = cbind(kc[,1:2], kc[,16])
+
+reactable(kc_homeless, pagination = FALSE, highlight = TRUE, height = 250, outlined = TRUE, striped = TRUE, filterable = FALSE, columns = list(County = colDef(filterable = TRUE), year = colDef(filterable = TRUE)), fullWidth = FALSE)
+```
+By county, the reported 2016 rates of child homelessness in Oregon range from 0 to 14.2 percent and the rate of children without healthcare runs from 3 to 10 percent. Oregon counties with the lowest rates of child immunization are Curry County with over 56% of children lacking completed immunization schedules and Coos County with over 48% of children in need of updated immunizations. Indicators such as immunization rates show not only an area’s child population’s risk of disease but can also serve as proxy for unobservable information such as a community’s children’s access to adequate healthcare.
+
+Percentage of Oregon Children Without Completed Immunization Schedules - by County
+```{r, echo = FALSE, message=FALSE}
+kc_noshot = cbind(kc[,1:2], kc[,17:18])
+
+reactable(kc_noshot, pagination = FALSE, highlight = TRUE, height = 250, outlined = TRUE, striped = TRUE,  filterable = FALSE, columns = list(County = colDef(filterable = TRUE), year = colDef(filterable = TRUE)), fullWidth = FALSE)
+```
+
+```{r }
+
+```
+
+## References
+[^1]: Basch, C. E. (2011). Healthier students are better learners: A missing link in school reforms to close the achievement gap. *Journal of School Health, 81* (10), 593–598.   &    
+Fiscella, K., & Kitzman, H. (2009). Disparities in academic achievement and health: the intersection of child education and health policy. *Pediatrics, 123(3)*, 1073-1080. 
+
+[^2]: Fiscella, K., & Kitzman, H. (2009). Disparities in academic achievement and health: the intersection of child education and health policy. *Pediatrics, 123(3)*, 1073-1080. 
