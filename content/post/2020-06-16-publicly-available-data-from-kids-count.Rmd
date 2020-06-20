@@ -1,26 +1,25 @@
 ---
-title: Publicly Available Data from KIDS COUNT
-author: rebecca
+title: "Publicly Available Data from KIDS COUNT"
+author: "rebecca"
 date: '2020-06-16'
-slug: publicly-available-data-from-kids-count
 categories: []
-tags:
-  - data
-subtitle: ''
-summary: ''
-authors: []
-lastmod: '2020-06-18T04:56:00-07:00'
 featured: no
 image:
   caption: ''
   focal_point: ''
   preview_only: no
+lastmod: '2020-06-18T04:56:00-07:00'
 projects: []
+slug: publicly-available-data-from-kids-count
+subtitle: ''
+summary: ''
+tags: data
+authors: []
 ---
 
 ```{r setup, echo = FALSE, message=FALSE}
 library(pacman)
-p_load(tidyverse, magrittr, reactable)
+p_load(tidyverse, magrittr, reactable, viridis)
 theme_set(theme_minimal(15) +
             theme(legend.position = "bottom"))
 
@@ -81,7 +80,10 @@ reactable(drop_na(kc_testing),
           columns = list(
             County = colDef(filterable = TRUE), 
             year = colDef(filterable = TRUE)), 
-          fullWidth = TRUE)
+          fullWidth = TRUE,
+          defaultColDef = colDef(
+    header = function(values, name) htmltools::div(name, style = list(fontWeight = 600))
+  ))
 
 county_testing <- left_join(counties, kc_testing) %>% 
   gather(var, percent, starts_with("%")) 
@@ -115,7 +117,6 @@ There is clear evidence that academic achievement and health outcomes are inter-
 
 With that in mind, we include a number of county-level health variables in our Kidscount data. They include (among others): percentage of children living in food insecure households, abuse and neglect rates, threat of harm rates, children in foster care and the juvenile justice system, infant mortality, teen pregnancy, low birthweights, adequate prenatal care, and immunization rates. 
 
-Percentage of Oregon Children Living in Homelessness - by County
 ```{r, echo = FALSE, message=FALSE, results = "asis"}
 kc_homeless <- kc %>% 
   select(County, year, ends_with("Homelessness"))
@@ -128,11 +129,35 @@ reactable(kc_homeless,
           striped = TRUE,  
           columns = list(County = colDef(filterable = TRUE), 
                          year = colDef(filterable = TRUE)), 
-          fullWidth = TRUE)
+          fullWidth = TRUE,
+          defaultColDef = colDef(
+    header = function(values, name) htmltools::div(name, style = list(fontWeight = 600))
+  ))
+
+
+county_homeless <- left_join(counties, kc_homeless) %>% 
+  gather(var, percent, starts_with("%")) 
+
+nested <- county_homeless %>% 
+  filter(year < 2017 ) %>% 
+  nest(data = c(County, year, percent, geometry))
+
+homeless <-  nested %>% 
+  mutate(map = map2(data, var, ~
+    ggplot(.x) +
+      geom_sf(aes(fill = percent),
+              color = "gray90") +
+      facet_wrap(~year) +
+      scale_fill_viridis(option="plasma") +
+      labs(title = .y) +
+      theme(plot.title = element_text(hjust = 0.5))
+    )
+  )
+
+homeless$map[[1]]
 ```
 By county, the reported 2016 rates of child homelessness in Oregon range from 0 to 14.2 percent and the rate of children without healthcare runs from 3 to 10 percent. Oregon counties with the lowest rates of child immunization are Curry County with over 56% of children lacking completed immunization schedules and Coos County with over 48% of children in need of updated immunizations. Indicators such as immunization rates show not only an area’s child population’s risk of disease but can also serve as proxy for unobservable information such as a community’s children’s access to adequate healthcare.
 
-Percentage of Oregon Children Without Completed Immunization Schedules - by County
 ```{r, echo = FALSE, message=FALSE, results = "asis"}
 kc_noshot <- kc %>% 
   select(County, year, contains("Immunization"), contains("Health Insurance"))
@@ -145,7 +170,32 @@ reactable(kc_noshot,
           striped = TRUE,  
           columns = list(County = colDef(filterable = TRUE), 
                          year = colDef(filterable = TRUE)), 
-          fullWidth = TRUE)
+          fullWidth = TRUE,
+          defaultColDef = colDef(
+    header = function(values, name) htmltools::div(name, style = list(fontWeight = 600))
+  ))
+
+
+county_noshot <- left_join(counties, kc_noshot) %>% 
+  gather(var, percent, starts_with("%")) 
+
+health_var <- county_noshot %>% 
+  filter(year < 2017 ) %>% 
+  nest(data = c(County, year, percent, geometry))
+
+health_var <- health_var %>% 
+  mutate(map = map2(data, var, ~
+    ggplot(.x) +
+      geom_sf(aes(fill = percent),
+              color = "gray90") +
+      facet_wrap(~year) +
+      scale_fill_viridis(option="cividis") +
+      labs(title = .y) +
+      theme(plot.title = element_text(hjust = 0.5))
+    )
+  )
+
+health_var$map[[1]]
 ```
 
 ```{r }
