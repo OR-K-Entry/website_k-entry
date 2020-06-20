@@ -80,10 +80,7 @@ reactable(drop_na(kc_testing),
           columns = list(
             County = colDef(filterable = TRUE), 
             year = colDef(filterable = TRUE)), 
-          fullWidth = TRUE,
-          defaultColDef = colDef(
-    header = function(values, name) htmltools::div(name, style = list(fontWeight = 600))
-  ))
+          fullWidth = TRUE)
 
 county_testing <- left_join(counties, kc_testing) %>% 
   gather(var, percent, starts_with("%")) 
@@ -129,11 +126,7 @@ reactable(kc_homeless,
           striped = TRUE,  
           columns = list(County = colDef(filterable = TRUE), 
                          year = colDef(filterable = TRUE)), 
-          fullWidth = TRUE,
-          defaultColDef = colDef(
-    header = function(values, name) htmltools::div(name, style = list(fontWeight = 600))
-  ))
-
+          fullWidth = TRUE)
 
 county_homeless <- left_join(counties, kc_homeless) %>% 
   gather(var, percent, starts_with("%")) 
@@ -170,11 +163,7 @@ reactable(kc_noshot,
           striped = TRUE,  
           columns = list(County = colDef(filterable = TRUE), 
                          year = colDef(filterable = TRUE)), 
-          fullWidth = TRUE,
-          defaultColDef = colDef(
-    header = function(values, name) htmltools::div(name, style = list(fontWeight = 600))
-  ))
-
+          fullWidth = TRUE)
 
 county_noshot <- left_join(counties, kc_noshot) %>% 
   gather(var, percent, starts_with("%")) 
