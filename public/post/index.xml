@@ -5,12 +5,34 @@
     <link>/post/</link>
       <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Tue, 16 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Tue, 23 Jun 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/GitHub_profile_pic.PNG</url>
       <title>Posts</title>
       <link>/post/</link>
     </image>
+    
+    <item>
+      <title>Calculating segregation</title>
+      <link>/post/calculating-segregation/</link>
+      <pubDate>Tue, 23 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>/post/calculating-segregation/</guid>
+      <description>
+
+
+&lt;p&gt;Racial segregation refers to the &lt;a href=&#34;https://en.wikipedia.org/wiki/Racial_segregation&#34;&gt;“systemic separation of people”&lt;/a&gt; based on their race or ethnicity. Plenty of projects have documented that American cities, in particular, are segregated to an alarming degree (for example, see &lt;a href=&#34;https://www.washingtonpost.com/graphics/2018/national/segregation-us-cities/&#34;&gt;this&lt;/a&gt; 2018 article by in the Washinton Post). The segregation itself &lt;a href=&#34;https://www.epi.org/publication/the-racial-achievement-gap-segregated-schools-and-segregated-neighborhoods-a-constitutional-insult/&#34;&gt;is not accidental&lt;/a&gt;, and is a major indicator of &lt;a href=&#34;https://www.healthypeople.gov/2020/topics-objectives/topic/social-determinants-health/interventions-resources/discrimination&#34;&gt;structrual discrimination&lt;/a&gt;, with the opportunities of groups of people systematically suppressed relative to others.&lt;/p&gt;
+&lt;p&gt;Segregation is often used in research when investigating large-scale social issues. For example, how would do rates of obesity differ between people living in highly segregated areas differ from those living in more diverse areas? When investigating these differenes, however, it is critical that we consider the conditions driving the segregation, and not just the segregation itself. Generally, it is not the segregation itself that drives these differences, but rather differential opportunities between communities. Measures of segregation can be a useful indicator of structural discrimination.&lt;/p&gt;
+&lt;p&gt;A &lt;a href=&#34;https://academic.oup.com/sf/article-pdf/67/2/281/6514769/67-2-281.pdf&#34;&gt;considerable number of different methods&lt;/a&gt; for measuring segregation exist, each built on different theories and with strengths and weaknesses. In this post, I’ll discuss three such measures of segregation, &lt;span class=&#34;math inline&#34;&gt;\(d\)&lt;/span&gt;, &lt;span class=&#34;math inline&#34;&gt;\(r\)&lt;/span&gt;, and &lt;span class=&#34;math inline&#34;&gt;\(h\)&lt;/span&gt;, the differences among them, and how we can calculate them in R.&lt;/p&gt;
+&lt;div id=&#34;measures-of-segregation&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Measures of segregation&lt;/h2&gt;
+&lt;p&gt;The most common measure of segregation is known as the &lt;em&gt;dissimilarity&lt;/em&gt; index, defined simply as&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\frac{1}{2}\Sigma_{i = 1}^{N}\left\lvert\frac{a_i}{A} - \frac{b_i}{B}\right\rvert
+\]&lt;/span&gt;
+where &lt;span class=&#34;math inline&#34;&gt;\(a_i\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(b_i\)&lt;/span&gt; are the population of &lt;span class=&#34;math inline&#34;&gt;\(A\)&lt;/span&gt; or &lt;span class=&#34;math inline&#34;&gt;\(B\)&lt;/span&gt;, repectively, in area &lt;span class=&#34;math inline&#34;&gt;\(i\)&lt;/span&gt;. More concretely, imagine we wanted to&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Publicly Available Data from KIDS COUNT</title>

@@ -1,0 +1,33 @@
+---
+title: Calculating segregation
+date: '2020-06-23'
+slug: calculating-segregation
+categories:
+  - Segregation
+  - Spatial
+tags: []
+subtitle: ''
+summary: ''
+authors: 
+  - "daniel"
+lastmod: '2020-06-23T16:34:01-07:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+Racial segregation refers to the ["systemic separation of people"](https://en.wikipedia.org/wiki/Racial_segregation) based on their race or ethnicity. Plenty of projects have documented that American cities, in particular, are segregated to an alarming degree (for example, see [this](https://www.washingtonpost.com/graphics/2018/national/segregation-us-cities/) 2018 article by in the Washinton Post). The segregation itself [is not accidental](https://www.epi.org/publication/the-racial-achievement-gap-segregated-schools-and-segregated-neighborhoods-a-constitutional-insult/), and is a major indicator of [structrual discrimination](https://www.healthypeople.gov/2020/topics-objectives/topic/social-determinants-health/interventions-resources/discrimination), with the opportunities of groups of people systematically suppressed relative to others. 
+
+Segregation is often used in research when investigating large-scale social issues. For example, how would do rates of obesity differ between people living in highly segregated areas differ from those living in more diverse areas? When investigating these differenes, however, it is critical that we consider the conditions driving the segregation, and not just the segregation itself. Generally, it is not the segregation itself that drives these differences, but rather differential opportunities between communities. Measures of segregation can be a useful indicator of structural discrimination.
+
+A [considerable number of different methods](https://academic.oup.com/sf/article-pdf/67/2/281/6514769/67-2-281.pdf) for measuring segregation exist, each built on different theories and with strengths and weaknesses. In this post, I'll discuss three such measures of segregation, $d$, $r$, and $h$, the differences among them, and how we can calculate them in R.
+
+## Measures of segregation
+The most common measure of segregation is known as the *dissimilarity* index, defined simply as
+
+$$
+\frac{1}{2}\Sigma_{i = 1}^{N}\left\lvert\frac{a_i}{A} - \frac{b_i}{B}\right\rvert
+$$
+where $a_i$ and $b_i$ are the population of $A$ or $B$, repectively, in area $i$. More concretely, imagine we wanted to 

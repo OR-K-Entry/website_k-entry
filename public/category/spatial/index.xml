@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>PI | OR-K-Entry</title>
-    <link>/author/pi/</link>
-      <atom:link href="/author/pi/index.xml" rel="self" type="application/rss+xml" />
-    <description>PI</description>
+    <title>Spatial | OR-K-Entry</title>
+    <link>/category/spatial/</link>
+      <atom:link href="/category/spatial/index.xml" rel="self" type="application/rss+xml" />
+    <description>Spatial</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Tue, 23 Jun 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/GitHub_profile_pic.png</url>
-      <title>PI</title>
-      <link>/author/pi/</link>
+      <title>Spatial</title>
+      <link>/category/spatial/</link>
     </image>
     
     <item>
