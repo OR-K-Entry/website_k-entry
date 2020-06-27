@@ -549,6 +549,8 @@
   <h1>Calculating segregation</h1>
 
   
+  <p class="page-subtitle">Exploring spatial and non-spatial measures of dissimilarity</p>
+  
 
   
     
@@ -589,7 +591,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    2 min read
+    9 min read
   </span>
   
 
@@ -633,15 +635,218 @@
 
 
 <p>Racial segregation refers to the <a href="https://en.wikipedia.org/wiki/Racial_segregation">“systemic separation of people”</a> based on their race or ethnicity. Plenty of projects have documented that American cities, in particular, are segregated to an alarming degree (for example, see <a href="https://www.washingtonpost.com/graphics/2018/national/segregation-us-cities/">this</a> 2018 article by in the Washinton Post). The segregation itself <a href="https://www.epi.org/publication/the-racial-achievement-gap-segregated-schools-and-segregated-neighborhoods-a-constitutional-insult/">is not accidental</a>, and is a major indicator of <a href="https://www.healthypeople.gov/2020/topics-objectives/topic/social-determinants-health/interventions-resources/discrimination">structrual discrimination</a>, with the opportunities of groups of people systematically suppressed relative to others.</p>
-<p>Segregation is often used in research when investigating large-scale social issues. For example, how would do rates of obesity differ between people living in highly segregated areas differ from those living in more diverse areas? When investigating these differenes, however, it is critical that we consider the conditions driving the segregation, and not just the segregation itself. Generally, it is not the segregation itself that drives these differences, but rather differential opportunities between communities. Measures of segregation can be a useful indicator of structural discrimination.</p>
-<p>A <a href="https://academic.oup.com/sf/article-pdf/67/2/281/6514769/67-2-281.pdf">considerable number of different methods</a> for measuring segregation exist, each built on different theories and with strengths and weaknesses. In this post, I’ll discuss three such measures of segregation, <span class="math inline">\(d\)</span>, <span class="math inline">\(r\)</span>, and <span class="math inline">\(h\)</span>, the differences among them, and how we can calculate them in R.</p>
-<div id="measures-of-segregation" class="section level2">
-<h2>Measures of segregation</h2>
-<p>The most common measure of segregation is known as the <em>dissimilarity</em> index, defined simply as</p>
+<p>Segregation is often used in research when investigating large-scale social issues. For example, how do rates of obesity differ between people living in highly segregated areas from those living in more diverse areas? When investigating these differenes, however, it is critical that we consider the conditions driving the segregation, and not just the segregation itself. Generally, it is not the segregation itself that drives these differences, but rather differential opportunities between communities. Measures of segregation can be a useful indicator of structural discrimination.</p>
+<p>A <a href="https://academic.oup.com/sf/article-pdf/67/2/281/6514769/67-2-281.pdf">considerable number of different methods</a> for measuring segregation exist, each built on different theories and with different strengths and weaknesses. In this post, I’ll discuss three such measures of segregation, <span class="math inline">\(d\)</span>, <span class="math inline">\(r\)</span>, and <span class="math inline">\(h\)</span>, the differences among them, and how we can calculate them in R.</p>
+<div id="measures-of-segregation" class="section level1">
+<h1>Measures of segregation</h1>
+<p><a href="https://academic.oup.com/sf/article-abstract/67/2/281/2231999">Massey and Denton (1988)</a> categorized measures of segregation into five broad categories: evenness, exposure, concentration, centralization, and clustering. These are defined as follows:</p>
+<ul>
+<li><p><strong>Evenness</strong> refers to how evenly two group of people are distribtued across a specific area.</p></li>
+<li><p><strong>Exposure</strong> refers to the “degree of potential contact, or the possibility of interaction, between minority and majority group members within geographic areas” (p. 287).</p></li>
+<li><p><strong>Concentration</strong> refers to the physical space occupied a given group. For example, a group that makes up 25% of a city’s population but resides in only 12% of its land mass would be said to be relatively concentrated.</p></li>
+<li><p><strong>Centralization</strong> is related to concentration, but specifically indexes the degree to which a given group is located near the center of urban areas.</p></li>
+<li><p><strong>Clustering</strong> refers to the extent to which specific groups of people are spatially clustered</p></li>
+</ul>
+<p>In this post, we’ll focus on the dissimilarity index, which is a measure of evenness. There are two versions of this statistic, one of which accounts for the spatial distribution of points, and one that does not. After a brief explanation below, we’ll get into an applied example with R.</p>
+<div id="dissimilarity-index" class="section level2">
+<h2>Dissimilarity index</h2>
+<p>Perhaps the most common measure of segregation is known as the <em>dissimilarity</em> index. The dissimilarity index is defined as</p>
 <p><span class="math display">\[
-\frac{1}{2}\Sigma_{i = 1}^{N}\left\lvert\frac{a_i}{A} - \frac{b_i}{B}\right\rvert
+d = \frac{1}{2}\Sigma_{i = 1}^{N}\left\lvert\frac{a_i}{A} - \frac{b_i}{B}\right\rvert
 \]</span>
-where <span class="math inline">\(a_i\)</span> and <span class="math inline">\(b_i\)</span> are the population of <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span>, repectively, in area <span class="math inline">\(i\)</span>. More concretely, imagine we wanted to</p>
+where <span class="math inline">\(a_i\)</span> and <span class="math inline">\(b_i\)</span> are the population of <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span>, repectively, in area <span class="math inline">\(i\)</span>. More concretely, imagine we wanted to use the dissimilarity index to estimate the segregation of a county based on <a href="https://en.wikipedia.org/wiki/Census_tract">census tracts</a>. In that case <span class="math inline">\(a_i\)</span> would represent the population of our “a” group in census tract <span class="math inline">\(i\)</span>, while <span class="math inline">\(A\)</span> would represent the overall population for the county (and similarly with <span class="math inline">\(b_i\)</span> and <span class="math inline">\(B\)</span>). Each census tract, <span class="math inline">\(i\)</span>, would then have a value representing whether a given group was over- or under-represented for that area. To estimate the overall segregation in the county, we would take the absolute value of all of these differences, sum them, and divide by two (halve the resulting value).</p>
+<p>The dissimilarity index is widely used and fairly easy to interpret. It represents the proportion of people that would need to be “redistributed” for the representation to be equal. The primary drawback of the dissimilarity index is a non-spatial measure–i.e., it does not <a href="https://journals.sagepub.com/doi/10.1111/j.0081-1750.2004.00150.x">“appropriately take into account the spatial patterning of population distributions”</a> (Reardon &amp; O’Sullivan, 2004).</p>
+<p>Alternatively, we can use measures that directly account for the spatial distribution, including a spatial measure of <span class="math inline">\(d\)</span>. Unlike the non-spatial index of <span class="math inline">\(d\)</span>, this measure does not represent the percentage of people that would have to relocate to obtain pure evenness, but it does provide an alternative representation of how different a local environment is from the overall environment. It’s esimtation is considerably more complex (see Reardon &amp; O’Sullivan for a complete description) but, luckily, is easily estimable in R via the <a href="https://cran.r-project.org/web/packages/seg/seg.pdf">seg</a> package in R.</p>
+</div>
+</div>
+<div id="an-applied-example" class="section level1">
+<h1>An applied example</h1>
+<p>Let’s look at an applied example. First we’ll get some data. If you’d like to follow along, you’ll need to first get an API key for the US Census (see the documentation from <em>tidycensus</em> <a href="https://walker-data.com/tidycensus/articles/basic-usage.html">here</a>). And, of course, you’ll need to have <a href="https://cran.r-project.org">R</a> installed on your local computer, along with each of the packages (all of which can be installed with <code>install.packages("pkg_name")</code>).</p>
+<p>I’ll start by getting census tract data for Oregon on the number of people who identified as Hispanic or White. I’ll then extract the county and subset it to just lane county.</p>
+<pre class="r"><code>library(tidyverse)
+theme_set(theme_minimal(15) +
+            theme(legend.position = &quot;bottom&quot;,
+                  legend.key.width = unit(1, &quot;cm&quot;)))
+library(colorspace)
+library(tidycensus)
+options(tigris_class = &quot;sf&quot;)
+
+or_tracts &lt;- get_acs(&quot;tract&quot;,
+              variables = c(hisp = &quot;B03002_012&quot;,
+                            white = &quot;B03002_003&quot;),
+              state = &quot;OR&quot;,
+              output = &quot;wide&quot;,
+              geometry = TRUE) %&gt;% 
+  mutate(county = gsub(&quot;.+\\d,\\s(.+)\\sCounty.+&quot;, &quot;\\1&quot;, NAME))
+
+lane &lt;- or_tracts %&gt;% 
+  filter(county == &quot;Lane&quot;)</code></pre>
+<p>This gives us a dataset that looks like this</p>
+<pre class="r"><code>lane</code></pre>
+<pre><code>## Simple feature collection with 87 features and 7 fields (with 1 geometry empty)
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -124.1587 ymin: 43.43739 xmax: -121.7681 ymax: 44.29054
+## epsg (SRID):    4269
+## proj4string:    +proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs
+## First 10 features:
+##          GEOID                                    NAME hispE hispM whiteE
+## 1  41039000705  Census Tract 7.05, Lane County, Oregon    51    39   3492
+## 2  41039000902  Census Tract 9.02, Lane County, Oregon   108    66   4450
+## 3  41039001904 Census Tract 19.04, Lane County, Oregon  1392   403   3393
+## 4  41039000500     Census Tract 5, Lane County, Oregon   121    62   1780
+## 5  41039000800     Census Tract 8, Lane County, Oregon    59    60   1412
+## 6  41039001400    Census Tract 14, Lane County, Oregon   105    85   2272
+## 7  41039001600    Census Tract 16, Lane County, Oregon   182   118   4613
+## 8  41039001903 Census Tract 19.03, Lane County, Oregon   470   291   2098
+## 9  41039002102 Census Tract 21.02, Lane County, Oregon   565   285   5371
+## 10 41039003201 Census Tract 32.01, Lane County, Oregon    83    70   2599
+##    whiteM                       geometry county
+## 1     345 MULTIPOLYGON (((-124.1253 4...   Lane
+## 2     424 MULTIPOLYGON (((-123.6256 4...   Lane
+## 3     351 MULTIPOLYGON (((-122.9633 4...   Lane
+## 4     142 MULTIPOLYGON (((-124.0142 4...   Lane
+## 5     174 MULTIPOLYGON (((-123.7763 4...   Lane
+## 6     226 MULTIPOLYGON (((-123.138 43...   Lane
+## 7     446 MULTIPOLYGON (((-122.906 44...   Lane
+## 8     352 MULTIPOLYGON (((-122.9688 4...   Lane
+## 9     491 MULTIPOLYGON (((-123.0486 4...   Lane
+## 10    331 MULTIPOLYGON (((-123.0493 4...   Lane</code></pre>
+<p>which certainly seems complicated, but is actually just a normal data frame that has a geometry column so we can easily map it (there’s more to it than that, but we’re got going to get into it here). In fact, it’s as easy as</p>
+<pre class="r"><code>ggplot(lane) +
+  geom_sf()</code></pre>
+<p><img src="/post/2020-06-23-calculating-segregation_files/figure-html/easy-map-1.png" width="672" /></p>
+<p>But what we really want to do is understand the distribution, or evenness, of people who identified as Hispanic versus White. So let’s first calculate</p>
+<pre class="r"><code>lane &lt;- lane %&gt;% 
+  mutate(a_i = hispE/sum(hispE),
+         b_i = whiteE/sum(whiteE),
+         diff = a_i - b_i)
+
+ggplot(lane) +
+  geom_sf(aes(fill = diff), size = 0.1, color = &quot;gray40&quot;) +
+  scale_fill_continuous_diverging(name = &quot;Group Representation&quot;, palette = &quot;Green-Orange&quot;)</code></pre>
+<p><img src="/post/2020-06-23-calculating-segregation_files/figure-html/evenness-1.png" width="672" /></p>
+<p>In the map above, positive values indicate areas where people who identify as Hispanic are over-represented, relative to the overall population of people who identify as Hispanic in the county. Similary, green values indicat areas where people who identify as Hispanic are under-represented.</p>
+<p>We can calculate the overall segregation for lane county by summing the absolute values for all differences, and multiplying this value by 1/2.</p>
+<pre class="r"><code>1/2*sum(abs(lane$diff))</code></pre>
+<pre><code>## [1] 0.2927482</code></pre>
+<p>As we see, Lane county is not tremendously segregated, but approximately 29% of people would have to move to achieve full evennness.</p>
+<p>We can verify that our answer is correct using the <em>seg</em> package</p>
+<pre class="r"><code>library(seg)</code></pre>
+<pre><code>## Loading required package: sp</code></pre>
+<pre class="r"><code>library(sf)</code></pre>
+<pre><code>## Linking to GEOS 3.7.2, GDAL 2.4.2, PROJ 5.2.0</code></pre>
+<pre class="r"><code>lane %&gt;% 
+  st_drop_geometry() %&gt;% # drop the geometry column
+  select(hispE, whiteE) %&gt;% # select only the columns we need 
+  dissim(data = .) %&gt;%  # estimate %&gt;% 
+  pluck(&quot;d&quot;) # pull just the non-spatial d</code></pre>
+<pre><code>## [1] 0.2927482</code></pre>
+<p>Success!</p>
+<p>But what if we wanted to calculate the spatial version? We have everything we need, but we do have to do a bit of reformatting.</p>
+<pre class="r"><code>sp &lt;- lane %&gt;% 
+  select(hispE, whiteE, geometry) %&gt;% 
+  drop_na() %&gt;% 
+  as_Spatial()
+
+spseg(sp)</code></pre>
+<pre><code>## 
+##  Reardon and O&#39;Sullivan&#39;s spatial segregation measures
+## 
+## Dissimilarity (D)     : 0.0313 
+## Relative diversity (R): -0.0401 
+## Information theory (H): -0.0303 
+## Exposure/Isolation (P): 
+##             hispE    whiteE
+## hispE  0.09775064 0.9022494
+## whiteE 0.09668872 0.9033113
+## --
+## The exposure/isolation matrix should be read horizontally.
+## Read &#39;help(spseg)&#39; for more details.</code></pre>
+<p>As you can see, we now have a pretty different measure of dissimilarity, indicating very little segregation in Lane County.</p>
+<div id="looking-across-the-whole-state" class="section level2">
+<h2>Looking across the whole state</h2>
+<p>Quickly, we may want to continue with this but look beyond Lane County. We could calculate segregation for the entire state, or by county. Let’s do the first with the non-spatial index, and the second using the spatial index.</p>
+<div id="non-spatial-d" class="section level3">
+<h3>Non-spatial <span class="math inline">\(d\)</span></h3>
+<pre class="r"><code>or_tracts %&gt;% 
+  mutate(a_i = hispE/sum(hispE),
+         b_i = whiteE/sum(whiteE),
+         diff = a_i - b_i) %&gt;% 
+  ggplot() +
+  geom_sf(aes(fill = diff), size = 0.1, color = &quot;gray40&quot;) +
+  scale_fill_continuous_diverging(name = &quot;Group Representation&quot;, 
+                                  palette = &quot;Green-Orange&quot;) </code></pre>
+<p><img src="/post/2020-06-23-calculating-segregation_files/figure-html/statewide1-1.png" width="672" /></p>
+<p>And we can get the overall estimate for the state</p>
+<pre class="r"><code>or_tracts %&gt;% 
+  st_drop_geometry() %&gt;% 
+  select(hispE, whiteE) %&gt;%
+  dissim(data = .) %&gt;%  
+  pluck(&quot;d&quot;) </code></pre>
+<pre><code>## [1] 0.3825223</code></pre>
+<p>So overall the state as a whole is slightly more segregated than Lane County.</p>
+<p>Lastly, let’s calculate the segregation for <em>each</em> county. We’ll use the spatial measure this time.</p>
+<p>First, we’ll wrap the estimation into a function, which will make looping through the counties a bit easier</p>
+<pre class="r"><code>estimate_d &lt;- function(county_data) {
+  # convert data to spatialDataFrame
+  spd &lt;- county_data %&gt;% 
+    select(hispE, whiteE, geometry) %&gt;%
+    drop_na() %&gt;% 
+    as_Spatial()
+  
+  # fit segregation model
+  sp_m &lt;- spseg(spd)
+  
+  # extract d
+  sp_m@d
+}</code></pre>
+<p>Let’s just test it quickly on Lane County</p>
+<pre class="r"><code>estimate_d(lane)</code></pre>
+<pre><code>## [1] 0.03131091</code></pre>
+<p>Great! Now we can loop it through all the counties.</p>
+<pre class="r"><code>by_county &lt;- split(or_tracts, or_tracts$county) 
+
+county_seg &lt;- tibble(county = names(by_county),
+                     d = map_dbl(by_county, estimate_d))
+county_seg</code></pre>
+<pre><code>## # A tibble: 36 x 2
+##    county              d
+##    &lt;chr&gt;           &lt;dbl&gt;
+##  1 Baker     0.05457257 
+##  2 Benton    0.007229558
+##  3 Clackamas 0.007737644
+##  4 Clatsop   0.01483605 
+##  5 Columbia  0.02248316 
+##  6 Coos      0.03508801 
+##  7 Crook     0.07015235 
+##  8 Curry     0.07244244 
+##  9 Deschutes 0.02414869 
+## 10 Douglas   0.02338020 
+## # … with 26 more rows</code></pre>
+<p>If we want to actually map these estimates, we have to first get county geographies. There’s lots of ways to do, but let’s stick with <em>tidycensus</em> and just request any variable.</p>
+<pre class="r"><code>or_counties &lt;- get_acs(&quot;county&quot;,
+              variables = c(hisp = &quot;B03002_012&quot;),
+              state = &quot;OR&quot;,
+              output = &quot;wide&quot;,
+              geometry = TRUE) %&gt;% 
+  mutate(county = gsub(&quot; County, Oregon&quot;, &quot;&quot;, NAME))
+
+or_counties %&gt;% 
+  left_join(county_seg)</code></pre>
+<p>And now we can plot it!</p>
+<pre class="r"><code>or_counties %&gt;% 
+  left_join(county_seg) %&gt;% 
+  ggplot(aes(fill = d)) +
+  geom_sf(size = 0.1) +
+  scale_fill_continuous_diverging(name = &quot;Group Representation&quot;, 
+                                  palette = &quot;Green-Orange&quot;) </code></pre>
+<pre><code>## Joining, by = &quot;county&quot;</code></pre>
+<p><img src="/post/2020-06-23-calculating-segregation_files/figure-html/state-by-county-1.png" width="672" /></p>
+<p>And we get a fairly different representation. But note that the comparisons here are different. In the map before this one, we were looking at the representation of people identifying as Hispanic within a given tract relative to the statewide population. Here, we’re looking at essentially the same thing but using county populations as the comparator, so we can get a sense of the between-county variance in segregation.</p>
+<p>That’s it for now! Please get in contact with myself or another member of the research team if you have any questions.</p>
+</div>
+</div>
 </div>
 
     </div>
