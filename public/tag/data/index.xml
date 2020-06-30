@@ -5,12 +5,24 @@
     <link>/tag/data/</link>
       <atom:link href="/tag/data/index.xml" rel="self" type="application/rss+xml" />
     <description>data</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Tue, 16 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Tue, 30 Jun 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/GitHub_profile_pic.png</url>
       <title>data</title>
       <link>/tag/data/</link>
     </image>
+    
+    <item>
+      <title>Indicators of Economic Health</title>
+      <link>/post/indicators-of-economic-health/</link>
+      <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>/post/indicators-of-economic-health/</guid>
+      <description>
+
+
+&lt;p&gt;In this phase of the project, we focus primarily on the individual (child / student) level and the near-community levels such as school or school district, census tract, or county. We include indicators of economic from multiple sources and evaluate separately the economic standing of a community and the economic health of individuals and families. Examples of variables used in compilation of the two economic health variables are shown in Blog Fig. 1 below.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Publicly Available Data from KIDS COUNT</title>
