@@ -5,12 +5,168 @@
     <link>/category/segregation/</link>
       <atom:link href="/category/segregation/index.xml" rel="self" type="application/rss+xml" />
     <description>Segregation</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Tue, 23 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Wed, 22 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/GitHub_profile_pic.png</url>
       <title>Segregation</title>
       <link>/category/segregation/</link>
     </image>
+    
+    <item>
+      <title>School District Level Segregation</title>
+      <link>/post/school-district-level-segregation/</link>
+      <pubDate>Wed, 22 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>/post/school-district-level-segregation/</guid>
+      <description>
+
+
+&lt;p&gt;In the &lt;a href=&#34;https://oregon-k-entry.netlify.app/post/calculating-segregation/&#34;&gt;last post&lt;/a&gt; we talked a bit about segregation and I showed how to calculate segregation across Oregon using census tracts to estimate segregation levels in counties. In this post, we’ll do a similar sort of thing, but we’ll look at the segregation of school districts in Oregon by exploring the distribution of demographics across schools within the district. Like last time, we’ll stick with only using the dissimilarity index because (a) it’s generally a useful and interpretable metric, (b) it’s probably the most widely used segregation indicator, even if it does have limitations, and most importantly (c) it’s easy to calculate and I’d like the focus of this post to be more on the data, rather than different methods for calculating segregation. In a later post, I’ll do the same sort of thing I’m doing here, but will use a few different methods so we get a more complete picture of the segregation in the given area.&lt;/p&gt;
+&lt;div id=&#34;getting-school-district-boundaries&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Getting school district boundaries&lt;/h2&gt;
+&lt;p&gt;We don’t actually &lt;strong&gt;have&lt;/strong&gt; to have school district boundaries to calculate segregation, but they are helpful if, in particular, we want to visualize the segregation. There’s a couple of way to get school district boundaries, but the best from my perspective is the new &lt;a href=&#34;https://github.com/ivelasq/leaidr&#34;&gt;{leaidir}&lt;/a&gt; package from &lt;a href=&#34;https://ivelasq.rbind.io&#34;&gt;Isabella Velásquez&lt;/a&gt;. You can install this package in R with&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;remotes::install_github(&amp;quot;ivelasq/leaidr&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then we can download shape files for all school districts across the entire United States with&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(leaidr)
+lea_get(here::here(&amp;quot;shape-files&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note that this will take a minute or two because you’re downloading a relatively large file.&lt;/p&gt;
+&lt;p&gt;Now we load just the shape file we want, which in this case would, of course, be for Oregon. We have to refer to Oregon through it’s &lt;a href=&#34;https://en.wikipedia.org/wiki/Federal_Information_Processing_Standards&#34;&gt;fips&lt;/a&gt; code, which for Oregon is 41 (see a complete list &lt;a href=&#34;https://www.mcc.co.mercer.pa.us/dps/state_fips_code_listing.htm&#34;&gt;here&lt;/a&gt;).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;or &amp;lt;- lea_prep(here::here(&amp;quot;shape-files&amp;quot;), fips = 41)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## OGR data source with driver: ESRI Shapefile 
+## Source: &amp;quot;/Users/daniel/BRT/dsi-seedgrant/website_k-entry/shape-files/schooldistrict_sy1819_tl19.shp&amp;quot;, layer: &amp;quot;schooldistrict_sy1819_tl19&amp;quot;
+## with 13315 features
+## It has 18 fields&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is a SpatialPolygonsDataFrame object, but I prefer using simple features via the &lt;a href=&#34;https://r-spatial.github.io/sf/&#34;&gt;{sf}&lt;/a&gt; package, so I’ll convert it.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(sf)
+or &amp;lt;- or %&amp;gt;% 
+  st_as_sf()  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And now let’s take a quick look at the boundaries.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+theme_set(theme_minimal(15) +
+            theme(legend.position = &amp;quot;bottom&amp;quot;,
+                  legend.key.width = unit(1, &amp;quot;cm&amp;quot;)))
+
+ggplot(or) +
+  geom_sf(fill = &amp;quot;#a9c7ef&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-07-22-school-district-level-segregation_files/figure-html/plot-district-boundaries-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Wonderful! Note that this is considerably better than what you might get with, say &lt;code&gt;tigris::school_districts&lt;/code&gt; which, for Oregon anyway, ends up with some missing data and empty polygons.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;getting-enrollment-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Getting enrollment data&lt;/h2&gt;
+&lt;p&gt;Let’s calculate how economically segregated districts in Oregon are. We’ll do this by comparing, essentially, the proportion of economically disadvantaged students in a given school to the overall proportion in the district. In other words, if 40% of all students in a given school district are classified as economically disadvantaged, then we would expect roughly 40% of the students in each school to be classified as such. If, however, some schools have 90% classified as economically disadvantaged, while others have 10%, then we would conclude this district has at least some degree of economic segregation.&lt;/p&gt;
+&lt;p&gt;First, let’s get the data we need. We’ll use data from the larger kindergarten-entry project. Each of these files were obtained originally from the &lt;a href=&#34;https://nces.ed.gov/ccd/&#34;&gt;NCES Common Core of Data&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;school_lunch_elig &amp;lt;- read_csv(&amp;quot;https://github.com/OR-K-Entry/k-entry/raw/master/data/nces/intermediary/schools_lunch.csv&amp;quot;) %&amp;gt;% 
+  filter(school_year == &amp;quot;2017-2018&amp;quot;) %&amp;gt;% 
+  select(ncessch, leaid, frl)
+
+school_mem &amp;lt;- read_csv(&amp;quot;https://github.com/OR-K-Entry/k-entry/raw/master/data/nces/intermediary/schools_mem.csv&amp;quot;) %&amp;gt;% 
+  filter(school_year == &amp;quot;2017-2018&amp;quot;) %&amp;gt;% 
+  select(ncessch, total) %&amp;gt;% 
+  distinct()
+
+# Join and remove overall statewide data
+d &amp;lt;- left_join(school_mem, school_lunch_elig) %&amp;gt;% 
+  filter(leaid != 4100009) %&amp;gt;% 
+  select(leaid, ncessch, frl, total)
+d&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,244 x 4
+##      leaid      ncessch   frl total
+##      &amp;lt;dbl&amp;gt;        &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
+##  1 4100003 410000301061    91   130
+##  2 4100003 410000301062    41    77
+##  3 4100014 410001400748   265   416
+##  4 4100014 410001400754    58    97
+##  5 4100014 410001400761   153   281
+##  6 4100014 410001401026    60   100
+##  7 4100015 410001500821   358   425
+##  8 4100015 410001500831   191   237
+##  9 4100015 410001500853   222   308
+## 10 4100015 410001501588    26    36
+## # … with 1,234 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And we’re good to go!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;calculating-dissimilarity&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Calculating dissimilarity&lt;/h2&gt;
+&lt;p&gt;The dissimilarity index is non-spatial, so we can actually go ahead and calculate measures of segregation for each district using just the enrollment data above. First, let’s write a function to do this. We could, of course, use a different package, but this is such a simple measure I prefer to just use my own function.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dissim &amp;lt;- function(ind, total) {
+  if((sum(is.na(ind)) / length(ind)) &amp;gt;= 0.5) {
+    return(NA_real_)
+  }
+  a &amp;lt;- ind / sum(ind, na.rm = TRUE)
+  b &amp;lt;- (total - ind) / sum(total, na.rm = TRUE)
+  
+  1/2*sum(abs(a - b), na.rm = TRUE)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In this function, &lt;code&gt;ind&lt;/code&gt; stands for counts of the given indicator, such as the number of students in the school receiving free or reduced price lunch. The &lt;code&gt;total&lt;/code&gt; argument refers to the total number of students in the school. The &lt;code&gt;ind&lt;/code&gt; argument is assumed to be a vector of counts for schools in the district, while &lt;code&gt;total&lt;/code&gt; can be either a vector of the same length or a scalar. Please see the previous blog post for a more detailed explanation of the body of this function (and as always, feel free to get in touch if it’s still confusing).&lt;/p&gt;
+&lt;p&gt;One thing to note is that the first thing the function does is check if at least 50% of schools in the district report free or reduced price lunch (FRL) data. This is because districts in Oregon do not report FRL counts if there are fewer than 7 students in the school that receive FRL services. The 50% cutoff is arbitrary, and we might want to look at other values, but it’s just what I decided on for now. We need FRL eligibility data for at least half the schools in the district to obtain an overall district-level estimate of economic segregation.&lt;/p&gt;
+&lt;p&gt;Now, let’s calculate it for each district.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dissims &amp;lt;- d %&amp;gt;%
+  group_by(leaid) %&amp;gt;% 
+  summarize(d = dissim(frl, total))
+dissims&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 198 x 2
+##      leaid         d
+##      &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;
+##  1 4100003 0.3188406
+##  2 4100014 0.2997763
+##  3 4100015 0.4084939
+##  4 4100016 0.2035   
+##  5 4100019 0.2768065
+##  6 4100020 0.2999805
+##  7 4100021 0.3070539
+##  8 4100023 0.2578609
+##  9 4100040 0.2535497
+## 10 4100043 0.4610778
+## # … with 188 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Hooray! Which districts in Oregon are the most economically segregated, using this method?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;arrange(dissims, desc(d))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 198 x 2
+##      leaid         d
+##      &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;
+##  1 4108100 0.4666434
+##  2 4100043 0.4610778
+##  3 4110040 0.4091908
+##  4 4100015 0.4084939
+##  5 4109270 0.4040470
+##  6 4101350 0.4022989
+##  7 4111640 0.4019608
+##  8 4112600 0.3994807
+##  9 4107710 0.3943662
+## 10 4107590 0.3937433
+## # … with 188 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can identify these districts by either merging in other data sources (e.g., &lt;a href=&#34;https://github.com/OR-K-Entry/k-entry/blob/master/data/nces/intermediary/schools_dir.csv&#34;&gt;this file&lt;/a&gt;) or using the &lt;a href=&#34;https://nces.ed.gov/ccd/districtsearch/&#34;&gt;NCES District search tool&lt;/a&gt; entering the &lt;code&gt;leaid&lt;/code&gt; into the NCES DIstrict ID field. Using the latter method, we find that the top three most economically segregated districts in Oregon, according to the dissimilarity index, are &lt;a href=&#34;https://nces.ed.gov/ccd/districtsearch/district_detail.asp?Search=1&amp;amp;details=1&amp;amp;DistrictID=4108100&amp;amp;DistrictType=1&amp;amp;DistrictType=2&amp;amp;DistrictType=3&amp;amp;DistrictType=4&amp;amp;DistrictType=5&amp;amp;DistrictType=6&amp;amp;DistrictType=7&amp;amp;DistrictType=8&amp;amp;NumOfStudentsRange=more&amp;amp;NumOfSchoolsRange=more&amp;amp;ID2=4108100&#34;&gt;Santiam Canyon School District&lt;/a&gt; in Linn County, &lt;a href=&#34;https://nces.ed.gov/ccd/districtsearch/district_detail.asp?Search=1&amp;amp;details=1&amp;amp;DistrictID=4108100&amp;amp;DistrictType=1&amp;amp;DistrictType=2&amp;amp;DistrictType=3&amp;amp;DistrictType=4&amp;amp;DistrictType=5&amp;amp;DistrictType=6&amp;amp;DistrictType=7&amp;amp;DistrictType=8&amp;amp;NumOfStudentsRange=more&amp;amp;NumOfSchoolsRange=more&amp;amp;ID2=4108280&#34;&gt;Mitchell School District&lt;/a&gt; in Wheeler County, and &lt;a href=&#34;https://nces.ed.gov/ccd/districtsearch/district_detail.asp?Search=1&amp;amp;details=1&amp;amp;DistrictID=4108100&amp;amp;DistrictType=1&amp;amp;DistrictType=2&amp;amp;DistrictType=3&amp;amp;DistrictType=4&amp;amp;DistrictType=5&amp;amp;DistrictType=6&amp;amp;DistrictType=7&amp;amp;DistrictType=8&amp;amp;NumOfStudentsRange=more&amp;amp;NumOfSchoolsRange=more&amp;amp;ID2=4100043&#34;&gt;ODE YCEP District&lt;/a&gt;, which is a district operated by the state and spans multiple counties (so it probably makes sense that this district would be more economically segregated).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;visualize-the-results&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Visualize the results&lt;/h2&gt;
+&lt;p&gt;Now we have the numbers, what do they look like when mapped? We just need to join these data with our school district boundaries data and plot the results.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;or &amp;lt;- or %&amp;gt;% 
+  mutate(leaid = as.numeric(as.character(GEOID))) %&amp;gt;% 
+  left_join(dissims)
+
+reference_points &amp;lt;- tibble(
+  city = c(&amp;quot;Portland&amp;quot;, &amp;quot;Eugene&amp;quot;, &amp;quot;Medford&amp;quot;, &amp;quot;Bend&amp;quot;),
+  lat = c(45.523452, 44.052069, 42.336896, 44.058173),
+  lon = c(-122.676207, -123.086754, -122.854244, -121.31531)
+  )
+
+library(colorspace)
+ggplot(or) +
+  geom_sf(aes(fill = d),
+          size = 0.1, 
+          color = &amp;quot;gray40&amp;quot;) +
+  geom_point(aes(x = lon, y = lat), data = reference_points) +
+  ggrepel::geom_label_repel(aes(x = lon, y = lat, label = city), 
+                           data = reference_points,
+                           min.segment.length = 0) +
+  scale_fill_continuous_diverging(name = &amp;quot;Group Representation&amp;quot;, 
+                                  palette = &amp;quot;Green-Orange&amp;quot;,
+                                  mid = mean(or$d, na.rm = TRUE),
+                                  na.value = &amp;quot;white&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-07-22-school-district-level-segregation_files/figure-html/join-with-spatial-data-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Note that I’ve used a diverging palette to highlight districts with relatively higher or lower economic segregation estimates relative to the overall sample average. It also appears essentially all of our missing data is in the Southeastern part of the state, which is not terrifically surprising given that this is the least densely populated area of Oregon. I’ve annotated the map with a few of the larger cities in Oregon. Overall, there’s surprisingly little pattern here. Perhaps changing the method we use to estimate segregation will change that somewhat, but it is sort of nice to see that, for example, areas of dense population do not necessarily have higher economic segregation rates.&lt;/p&gt;
+&lt;p&gt;That’s it for now, please get in touch if you have any questions!&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Calculating segregation</title>
