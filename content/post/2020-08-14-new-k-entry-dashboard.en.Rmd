@@ -1,0 +1,31 @@
+---
+title: New K-Entry Dashboard!
+author: Daniel Anderson
+date: '2020-08-14'
+slug: new-k-entry-dashboard
+categories: []
+tags: []
+subtitle: ''
+summary: ''
+authors: [daniel]
+lastmod: '2020-08-14T10:51:29-07:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+This is just a quick note to share that we have a [new k-entry dashboard](../../../pre-k-dashboard) exploring community and school-level influences on students' scores on the kindergarten entry assessment. Please check it out and let us know what you think!
+
+We pooled data from the [Stanford Education Data Archive](https://edopportunity.org) with our own data on [Pre-K providers](https://github.com/OR-K-Entry/ec-providers) and Kindergarten entry assessment scores in Oregon from 2014-15, 2015-16, and 2016-17. We fit an [extreme gradient boosted tree](https://xgboost.readthedocs.io/) model to see how well we could predict students' scores on the kindergarten entry assessment in early mathematics, letter sound recognition, and a measure of self-regulation and interpersonal skills (which we broadly termed "Social"). Overall, our analysis included 200 predictors of students' scores at the individual (e.g., race/ethnicity, gender), school (e.g., enrollment demographics, teacher FTE, charter status), district (e.g., enrollment demographics, segregation estimates, parental education indicators), and community (pre-k providers) level.s
+
+Our results suggest that, even while using a sophisticated machine learning model that was carefully tuned (see the middle panel of each content tab for cross-validated evaluations of an array of hyperparamters), much of the variance in students' entry scores is unexplained. Approximately 11% of the total variability in math scores was accounted for by the model, while 17% of letter sound variance was captured. However, only 2% of the variance in the social measure was accounted for. 
+
+We include a few feature interpretation plots for each content area in the dashboard (partial dependency plots), including the school proportion of students eligible for free or reduced price lunch, whether the individual student was coded Hispanic, and the percentage of males in the district who had an educational attainment of a Bachelor's degree or higher. These three variables were consistently among the most important features. Schools with higher percentage of FRL-eligible students were associated with lower expected scores. Students coded Hispanic also scored lower, on average, and higher proportion of males in the area with Bachelor's degree or higher corresponded with higher scores. Importantly, this work is **very** preliminary. We are working to obtain additional student-level data, which may help better explain these relations.
+
+This dashboard will be presented at the [Stanford Conference on Educational Data Science](https://iriss.stanford.edu/css/conferences/conference-educational-data-science/agenda) and the poster is oriented primarily around the modeling, rather than the substantive findings. We'll link back to this post once the recording for the conference is posted. Please let us know if you have any feedback!
+
+
+

@@ -5,12 +5,28 @@
     <link>/author/pi/</link>
       <atom:link href="/author/pi/index.xml" rel="self" type="application/rss+xml" />
     <description>PI</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Wed, 22 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Fri, 14 Aug 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/GitHub_profile_pic.png</url>
       <title>PI</title>
       <link>/author/pi/</link>
     </image>
+    
+    <item>
+      <title>New K-Entry Dashboard!</title>
+      <link>/post/new-k-entry-dashboard/</link>
+      <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>/post/new-k-entry-dashboard/</guid>
+      <description>
+
+
+&lt;p&gt;This is just a quick note to share that we have a &lt;a href=&#34;../../../pre-k-dashboard&#34;&gt;new k-entry dashboard&lt;/a&gt; exploring community and school-level influences on students’ scores on the kindergarten entry assessment. Please check it out and let us know what you think!&lt;/p&gt;
+&lt;p&gt;We pooled data from the &lt;a href=&#34;https://edopportunity.org&#34;&gt;Stanford Education Data Archive&lt;/a&gt; with our own data on &lt;a href=&#34;https://github.com/OR-K-Entry/ec-providers&#34;&gt;Pre-K providers&lt;/a&gt; and Kindergarten entry assessment scores in Oregon from 2014-15, 2015-16, and 2016-17. We fit an &lt;a href=&#34;https://xgboost.readthedocs.io/&#34;&gt;extreme gradient boosted tree&lt;/a&gt; model to see how well we could predict students’ scores on the kindergarten entry assessment in early mathematics, letter sound recognition, and a measure of self-regulation and interpersonal skills (which we broadly termed “Social”). Overall, our analysis included 200 predictors of students’ scores at the individual (e.g., race/ethnicity, gender), school (e.g., enrollment demographics, teacher FTE, charter status), district (e.g., enrollment demographics, segregation estimates, parental education indicators), and community (pre-k providers) level.s&lt;/p&gt;
+&lt;p&gt;Our results suggest that, even while using a sophisticated machine learning model that was carefully tuned (see the middle panel of each content tab for cross-validated evaluations of an array of hyperparamters), much of the variance in students’ entry scores is unexplained. Approximately 11% of the total variability in math scores was accounted for by the model, while 17% of letter sound variance was captured. However, only 2% of the variance in the social measure was accounted for.&lt;/p&gt;
+&lt;p&gt;We include a few feature interpretation plots for each content area in the dashboard (partial dependency plots), including the school proportion of students eligible for free or reduced price lunch, whether the individual student was coded Hispanic, and the percentage of males in the district who had an educational attainment of a Bachelor’s degree or higher. These three variables were consistently among the most important features. Schools with higher percentage of FRL-eligible students were associated with lower expected scores. Students coded Hispanic also scored lower, on average, and higher proportion of males in the area with Bachelor’s degree or higher corresponded with higher scores. Importantly, this work is &lt;strong&gt;very&lt;/strong&gt; preliminary. We are working to obtain additional student-level data, which may help better explain these relations.&lt;/p&gt;
+&lt;p&gt;This dashboard will be presented at the &lt;a href=&#34;https://iriss.stanford.edu/css/conferences/conference-educational-data-science/agenda&#34;&gt;Stanford Conference on Educational Data Science&lt;/a&gt; and the poster is oriented primarily around the modeling, rather than the substantive findings. We’ll link back to this post once the recording for the conference is posted. Please let us know if you have any feedback!&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>School District Level Segregation</title>
